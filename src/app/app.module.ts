@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { EvotingComponent } from './evoting/evoting.component';
+import { WebcamModule } from 'ngx-webcam'; // Import the WebcamModule
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EvotingComponent, // Declare your component here
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    WebcamModule, // Add WebcamModule to imports
   ],
-  providers: [
-    provideClientHydration()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
