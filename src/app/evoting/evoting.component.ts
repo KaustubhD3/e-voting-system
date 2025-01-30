@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-evoting',
@@ -10,62 +10,75 @@ import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 })
 export class EvotingComponent {
   tab: string = 'register';
-  registerForm: FormGroup;
-  signinForm: FormGroup;
-  adminForm: FormGroup;
+
+  // Form Data Objects
+  registerData: any = {
+    aadhar: '',
+    name: '',
+    // surname: '',
+    lastname: '',
+    dob: '',
+    gender: '',
+    address: '',
+    postalCode: '',
+    contactNumber: '',
+    password: '',
+    image: null,
+  };
+
+  signinData: any = {
+    aadhar: '',
+    password: '',
+  };
+
+  adminData: any = {
+    username: '',
+    password: '',
+  };
+
   webcamImage: WebcamImage | null = null;
   triggerSnapshot: Subject<void> = new Subject<void>();
+  triggerObservable: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group({
-      aadhar: [''],
-      name: [''],
-      surname: [''],
-      lastname: [''],
-      dob: [''],
-      gender: [''],
-      address: [''],
-      postalCode: [''],
-      contactNumber: [''],
-      password: [''],
-      image: [null],
-    });
-
-    this.signinForm = this.fb.group({
-      aadhar: [''],
-      password: [''],
-    });
-
-    this.adminForm = this.fb.group({
-      username: [''],
-      password: [''],
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   setTab(tabName: string) {
     this.tab = tabName;
   }
 
   onRegister() {
-    const formData = { ...this.registerForm.value, image: this.webcamImage?.imageAsBase64 };
+    const formData = { ...this.registerData, image: this.webcamImage?.imageAsBase64 };
     console.log('Register Data:', formData);
+
+    const url = 'http://localhost:8080/api/users/register';
+    this.http.post(url, formData).subscribe(
+      (result) => {
+        console.log('Registration successful:', result);
+      },
+      (error) => {
+        console.error('Registration error:', error);
+      }
+    );
   }
 
   onSignIn() {
-    console.log('Sign In Data:', this.signinForm.value);
+    console.log('Sign In Data:', this.signinData);
   }
 
   onAdminLogin() {
-    console.log('Admin Login Data:', this.adminForm.value);
+    console.log('Admin Login Data:', this.adminData);
   }
 
   triggerSnapshotHandler() {
     this.triggerSnapshot.next();
+    this.triggerObservable.next();
   }
 
   handleImage(webcamImage: WebcamImage) {
+    console.log('Captured image:', webcamImage);
     this.webcamImage = webcamImage;
   }
+
   handleInitError(error: WebcamInitError): void {
     console.error('Webcam initialization error:', error);
     alert('Webcam initialization failed. Please check your camera permissions.');

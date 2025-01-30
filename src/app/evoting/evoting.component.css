@@ -1,26 +1,82 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .tabs button {
-    margin: 5px;
-    padding: 10px 15px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .camera {
-    margin: 20px 0;
-  }
-  
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.title {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.tabs button:hover {
+  background-color: #2980b9;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button[type="submit"], .webcam-container button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover, .webcam-container button:hover {
+  background-color: #219150;
+}
+
+.webcam-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.webcam-container img {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}

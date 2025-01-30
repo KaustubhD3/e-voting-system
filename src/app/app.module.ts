@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { EvotingComponent } from './evoting/evoting.component';
 import { WebcamModule } from 'ngx-webcam'; // Import the WebcamModule
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { WebcamModule } from 'ngx-webcam'; // Import the WebcamModule
     EvotingComponent, // Declare your component here
   ],
   imports: [
-    BrowserModule,
+    HttpClientModule,
+    BrowserModule,FormsModule,
     ReactiveFormsModule,
     WebcamModule, // Add WebcamModule to imports
   ],
